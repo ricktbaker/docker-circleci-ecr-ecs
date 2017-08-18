@@ -47,7 +47,7 @@ jobs:
               # Create task for docker deploy
               task_template='[
                 {
-                  "name": "%",
+                  "name": "%s",
                   "image": "%s.dkr.ecr.us-east-1.amazonaws.com/%s:%s",
                   "essential": true,
                   "memoryReservation": 1000,
