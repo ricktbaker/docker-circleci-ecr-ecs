@@ -1,0 +1,24 @@
+{
+  "name": "docker-circleci-ecr-ecs",
+  "version": "0.1.0",
+  "description": "Example hapi app within a docker container, deployed to ECS via circleci and ECR",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "hapi": "^16.4.3",
+    "hapi-routes": "^3.0.0",
+    "hapi-swagger": "^7.7.0",
+    "inert": "^4.2.0",
+    "joi": "^10.6.0",
+    "vision": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.2.0",
+    "gulp-eslint": "^4.0.0",
+    "gulp-nodemon": "^2.0.7",
+    "nodemon": "^1.11.0"
+  }
+}

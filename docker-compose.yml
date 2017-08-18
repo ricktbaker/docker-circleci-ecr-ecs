@@ -1,0 +1,16 @@
+version: '2'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: container-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules
+    environment:
+      NODE_ENV: local
+    tty: true
+    command: gulp start
