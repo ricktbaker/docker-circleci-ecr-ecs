@@ -62,6 +62,8 @@ jobs:
                   ]
                 }
               ]'
+              echo "$task_template"
+
               task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $TASK $CIRCLE_SHA1)
 
               # Register task definition
