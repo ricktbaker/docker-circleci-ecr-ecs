@@ -1,6 +1,6 @@
 ## Hapi - Docker - Git - CircleCi - AWS ECR - AWS ECS
 
-An example dockerized hapi application that will deploy to amazon ECS whenever the master branch is updated.
+An example dockerized hapi "Hello World" application that will deploy to amazon ECS whenever the master branch is updated.
 
 ### AWS
 
@@ -27,5 +27,7 @@ AWS_SECRET_ACCESS_KEY
 ### Deployment
 
 Anytime you push to master branch, CircleCI will go through it's build and then deploy to AWS.  The branch for deployment
-is specified within the .circleci/config.yml file.
+is specified within the .circleci/config.yml file.   
+
+Example app should respond on port 80 of your ECS instance/load balancer with "Hello world".
 
