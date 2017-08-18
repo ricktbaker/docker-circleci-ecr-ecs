@@ -1,0 +1,77 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache py-pip=9.0.0-r1
+            pip install awscli==1.11.76
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t app .
+      # If we had
+      #- run:
+      #    name: Run mongo db
+      #    command: |
+      #      docker run --name mongo_test -d mongo
+      #- run:
+      #    name: Run tests
+      #    command: |
+      #      docker run -a STDOUT -it -p 4100:3000 --link mongo_test:db --name test_app app gulp test
+      #      #docker exec -t test_app gulp test
+      - deploy:
+          name: Push application Docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+
+              CLUSTER_NAME='test-app-cluster'
+              FAMILY='test-app-family'
+              DOCKER_IMAGE='test-app'
+              TASK='test-app'
+
+              # Login to AWS
+              aws configure set region $REGION
+              $(aws ecr get-login)
+
+              # Tag and push docker image
+              docker tag api $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+              docker push $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+
+              # Create task for docker deploy
+              task_template='[
+                {
+                  "name": "$TASK",
+                  "image": "%s.dkr.ecr.us-east-1.amazonaws.com/$TASK:%s",
+                  "essential": true,
+                  "memoryReservation": 1000,
+                  "portMappings": [
+                    {
+                      "containerPort": 3000,
+                      "hostPort": 80
+                    }
+                  ],
+                  "environment" : [
+                      { "name" : "NODE_ENV", "value" : "production" }
+                  ]
+                }
+              ]'
+              task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
+
+              # Register task definition
+              json=$(aws ecs register-task-definition --container-definitions "$task_def" --family $FAMILY)
+
+              # Grab revision # using regular bash and grep
+              revision=$(echo "$json" | grep -o '"revision": [0-9]*' | grep -Eo '[0-9]+')
+
+              # Deploy revision
+              aws ecs update-service --cluster $CLUSTER --service api-service --task-definition $TASK:$revision
+              return 0
+
+            fi
