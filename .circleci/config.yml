@@ -37,12 +37,12 @@ jobs:
               TASK='test-app'
 
               # Login to AWS
-              aws configure set region $REGION
+              aws configure set region $AWS_REGION
               $(aws ecr get-login)
 
               # Tag and push docker image
-              docker tag api $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
-              docker push $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+              docker tag api $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+              docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
 
               # Create task for docker deploy
               task_template='[
