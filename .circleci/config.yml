@@ -76,5 +76,4 @@ jobs:
               # Deploy revision
               $(aws ecs update-service --cluster "$CLUSTER" --service "$SERVICE" --task-definition "$TASK":"$revision")
               return 0
-
             fi
