@@ -15,7 +15,7 @@ You'll then need to setup ECS.
 See the [EC2 Container Service
 Resources Page](https://aws.amazon.com/ecs/) if you need more help on the above.
 
-You'll need AWS credentials that have access to ECR and ECS
+You'll need AWS credentials for the step below that have access to ECR and ECS
 
 ### CircleCi
 
