@@ -31,8 +31,8 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
 
-              CLUSTER_NAME='test-app-cluster'
-              FAMILY='test-app-family'
+              CLUSTER_NAME='test-app'
+              FAMILY='test-app'
               DOCKER_IMAGE='test-app'
               TASK='test-app'
 
@@ -41,7 +41,7 @@ jobs:
               $(aws ecr get-login)
 
               # Tag and push docker image
-              docker tag api $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+              docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
               docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
 
               # Create task for docker deploy
