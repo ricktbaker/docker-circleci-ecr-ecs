@@ -12,6 +12,9 @@ You'll then need to setup ECS.
 - A Task Definition - test-app for this example, variable within .circleci/config.yml
 - A Service within the cluster - app-service for this example, variable within .circleci/config.yml
 
+See the [EC2 Container Service
+Resources Page](https://aws.amazon.com/ecs/) if you need more help on the above.
+
 You'll need AWS credentials that have access to ECR and ECS
 
 ### CircleCi
