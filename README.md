@@ -4,7 +4,7 @@ An example dockerized hapi application that will deploy to amazon ECS whenever t
 
 ### AWS
 
-You'll need to setup Amazon ECR for your docker image, in this sample it's just test-app
+You'll need to setup Amazon ECR for your docker image, in this sample it's just test-app, , variable within .circleci/config.yml
 
 You'll then need to setup ECS. 
 
@@ -26,5 +26,6 @@ AWS_SECRET_ACCESS_KEY
 
 ### Deployment
 
-Anytime you push to master branch, CircleCI will go through it's build and then deploy to AWS
+Anytime you push to master branch, CircleCI will go through it's build and then deploy to AWS.  The branch for deployment
+is specified within the .circleci/config.yml file.
 
