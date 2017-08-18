@@ -48,7 +48,7 @@ jobs:
               task_template='[
                 {
                   "name": "%",
-                  "image": "%s.dkr.ecr.us-east-1.amazonaws.com/$TASK:%s",
+                  "image": "%s.dkr.ecr.us-east-1.amazonaws.com/%s:%s",
                   "essential": true,
                   "memoryReservation": 1000,
                   "portMappings": [
@@ -62,7 +62,7 @@ jobs:
                   ]
                 }
               ]'
-              task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $CIRCLE_SHA1)
+              task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $TASK $CIRCLE_SHA1)
 
               # Register task definition
               json=$(aws ecs register-task-definition --container-definitions "$task_def" --family $FAMILY)
