@@ -35,6 +35,7 @@ jobs:
               FAMILY='test-app'
               DOCKER_IMAGE='test-app'
               TASK='test-app'
+              SERVICE='app-service'
 
               # Login to AWS
               aws configure set region $AWS_REGION
@@ -67,13 +68,13 @@ jobs:
               task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $TASK $CIRCLE_SHA1)
 
               # Register task definition
-              json=$(aws ecs register-task-definition --container-definitions "$task_def" --family $FAMILY)
+              json=$(aws ecs register-task-definition --container-definitions "$task_def" --family "$FAMILY")
 
               # Grab revision # using regular bash and grep
               revision=$(echo "$json" | grep -o '"revision": [0-9]*' | grep -Eo '[0-9]+')
 
               # Deploy revision
-              aws ecs update-service --cluster $CLUSTER --service api-service --task-definition $TASK:$revision
+              $(aws ecs update-service --cluster "$CLUSTER" --service "$SERVICE" --task-definition "$TASK":"$revision")
               return 0
 
             fi
