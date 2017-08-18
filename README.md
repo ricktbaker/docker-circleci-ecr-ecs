@@ -8,7 +8,9 @@ You'll need to setup Amazon ECR for your docker image, in this sample it's just 
 
 You'll then need to setup ECS. 
 
-- A ECS cluster - test-app for this example
+- A ECS cluster - test-app for this example, variable within .circleci/config.yml
+- A Task Definition - test-app for this example, variable within .circleci/config.yml
+- A Service within the cluster - app-service for this example, variable within .circleci/config.yml
 
 You'll need AWS credentials that have access to ECR and ECS
 
@@ -20,4 +22,9 @@ AWS_ACCESS_KEY_ID
 AWS_ACCOUNT_ID
 AWS_REGION
 AWS_SECRET_ACCESS_KEY
+
+
+### Deployment
+
+Anytime you push to master branch, CircleCI will go through it's build and then deploy to AWS
 
