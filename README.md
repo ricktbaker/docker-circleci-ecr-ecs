@@ -33,3 +33,7 @@ is specified within the .circleci/config.yml file.
 
 Example app should respond on port 80 of your ECS instance/load balancer with "Hello world".
 
+### Deployment via custom bash script
+
+If you don't want to use CircleCi you can deploy with the deploy.sh script.    
+
