@@ -35,5 +35,9 @@ Example app should respond on port 80 of your ECS instance/load balancer with "H
 
 ### Deployment via custom bash script
 
-If you don't want to use CircleCi you can deploy with the deploy.sh script.    
+If you don't want to use CircleCi you can deploy with the deploy.sh script.    There is a section of variables that you can customize for your needs.   The only one you'll need to modify for this example if you've stuck with test-app for everything is just modify the AWS_ACCOUNT_ID variable.
+
+Just pass it a tag that you want your dockerfile tagged with and it will handle the push to ECR and deployment to ECS.
+
+`./deploy.sh production`
 
