@@ -4,7 +4,7 @@ An example dockerized hapi "Hello World" application that will deploy to amazon 
 
 ### AWS
 
-You'll need to setup Amazon ECR for your docker image, in this sample it's just test-app, , variable within .circleci/config.yml
+You'll need to setup Amazon ECR for your docker image, in this sample it's just test-app, which is also a variable within .circleci/config.yml
 
 You'll then need to setup ECS. 
 
@@ -21,10 +21,10 @@ You'll need AWS credentials for the step below that have access to ECR and ECS
 
 You'll need to have your project setup with the following environment variables
 
-AWS_ACCESS_KEY_ID
-AWS_ACCOUNT_ID
-AWS_REGION
-AWS_SECRET_ACCESS_KEY
+AWS_ACCESS_KEY_ID  
+AWS_ACCOUNT_ID  
+AWS_REGION  
+AWS_SECRET_ACCESS_KEY  
 
 
 ### Deployment
