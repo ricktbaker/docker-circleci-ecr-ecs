@@ -35,7 +35,7 @@ docker push $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$DOCKER_IMAGE:$VERSION
 task_template='[
   {
     "name": "%s",
-    "image": "%s.dkr.ecr.us-east-1.amazonaws.com/%s:%s",
+    "image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
     "essential": true,
     "memoryReservation": 1000,
     "portMappings": [
@@ -50,7 +50,7 @@ task_template='[
   }
 ]'
 
-task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $TASK $SHA1)
+task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $REGION $TASK $SHA1)
 
 # Register task definition
 json=$(aws ecs register-task-definition --container-definitions "$task_def" --family "$FAMILY")
